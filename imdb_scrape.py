@@ -7,6 +7,7 @@ import re
 import pandas as pd
 from time import sleep
 from random import randint
+from tabulate import tabulate
 
 
 
@@ -19,11 +20,7 @@ genres =[]
 creators =[]        #Actors and directors
 imdb_reference = [] #IMDb reference number
 
-"""
-url = 'https://www.imdb.com/search/keyword/?keywords=lgbt&ref_=kw_ref_key&sort=moviemeter,asc&mode=detail&page=1'
-response = requests.get(url).text
-soup = BeautifulSoup(response, 'lxml')
-"""
+
 
 pages = np.arange(1, 35, 1)
 
@@ -33,6 +30,7 @@ for page in pages:
 
     data = soup.findAll('div', attrs = {'class' : "lister-item mode-detail"})
 
+    #This gives running script so we can see the program working and check its status.
     print('Sleeping')
     sleep(randint(2,10))
     print('Running' + str(page))
@@ -71,6 +69,7 @@ for page in pages:
         id = str(listing.h3.find("a")) if listing.h3.find("a") else '-'*26
         imdb_reference.append(id[16:25])
 
+# This checks for equal field size
 """    
 print(len(titles))
 print(len(years))
@@ -92,6 +91,11 @@ movies = pd.DataFrame({
     'imdb_reference' : imdb_reference
 })
 
+#I dont want the output to be regenerated every time I change other parts
+"""
 movies.to_csv('output.csv')
+"""
+
 
 # Possible other outputs? Need to see how pandas does with CSV files
+print(tabulate(movies, headers='keys', tablefmt='psql'))
