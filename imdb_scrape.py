@@ -7,7 +7,7 @@ import re
 import pandas as pd
 from time import sleep
 from random import randint
-from tabulate import tabulate
+
 
 
 
@@ -19,7 +19,6 @@ fan_stars = []
 genres =[]
 creators =[]        #Actors and directors
 imdb_reference = [] #IMDb reference number
-
 
 
 pages = np.arange(1, 35, 1)
@@ -98,4 +97,4 @@ movies.to_csv('output.csv')
 
 
 # Possible other outputs? Need to see how pandas does with CSV files
-print(tabulate(movies, headers='keys', tablefmt='psql'))
+
